@@ -12,6 +12,7 @@ class ChatController: UIViewController {
     
     fileprivate var cellIdentifier = "textCell"
     fileprivate var messages = [String]()
+    fileprivate let sentimentService = SentimentService()
     
     private let tableView: UITableView = {
         let tableView = UITableView()
@@ -69,6 +70,10 @@ extension ChatController: UITableViewDelegate, UITableViewDataSource {
         cell.contentView.transform = CGAffineTransform(scaleX: 1, y: -1)
         cell.textLabel?.text = messages[indexPath.row]
         cell.textLabel?.textAlignment = indexPath.row.isMultiple(of: 2) ? .left : .right
+        
+        let sentiment = sentimentService.predictSentiment(of: "This is a new message wow!")
+        cell.backgroundColor = sentiment.color
+        
         return cell
     }
 }
