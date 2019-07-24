@@ -8,18 +8,20 @@
 
 /* Begin PBXBuildFile section */
 		A418DEE522E6B2A5001A2E2E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A418DEE422E6B2A5001A2E2E /* AppDelegate.swift */; };
-		A418DEE722E6B2A5001A2E2E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A418DEE622E6B2A5001A2E2E /* ViewController.swift */; };
 		A418DEEC22E6B2A6001A2E2E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A418DEEB22E6B2A6001A2E2E /* Assets.xcassets */; };
 		A418DEEF22E6B2A6001A2E2E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A418DEED22E6B2A6001A2E2E /* LaunchScreen.storyboard */; };
+		A418DEF722E76657001A2E2E /* ChatController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A418DEF622E76657001A2E2E /* ChatController.swift */; };
+		A418DEF922E7F9F9001A2E2E /* SentimentPolarity.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = A418DEF822E7F9F9001A2E2E /* SentimentPolarity.mlmodel */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		A418DEE122E6B2A5001A2E2E /* TextingWithSentimentAnalysis.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TextingWithSentimentAnalysis.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A418DEE422E6B2A5001A2E2E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		A418DEE622E6B2A5001A2E2E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		A418DEEB22E6B2A6001A2E2E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A418DEEE22E6B2A6001A2E2E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A418DEF022E6B2A6001A2E2E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A418DEF622E76657001A2E2E /* ChatController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatController.swift; sourceTree = "<group>"; };
+		A418DEF822E7F9F9001A2E2E /* SentimentPolarity.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = SentimentPolarity.mlmodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,13 +54,22 @@
 		A418DEE322E6B2A5001A2E2E /* TextingWithSentimentAnalysis */ = {
 			isa = PBXGroup;
 			children = (
+				A418DEFA22E80B9A001A2E2E /* Resources */,
 				A418DEE422E6B2A5001A2E2E /* AppDelegate.swift */,
-				A418DEE622E6B2A5001A2E2E /* ViewController.swift */,
-				A418DEEB22E6B2A6001A2E2E /* Assets.xcassets */,
-				A418DEED22E6B2A6001A2E2E /* LaunchScreen.storyboard */,
-				A418DEF022E6B2A6001A2E2E /* Info.plist */,
+				A418DEF622E76657001A2E2E /* ChatController.swift */,
 			);
 			path = TextingWithSentimentAnalysis;
+			sourceTree = "<group>";
+		};
+		A418DEFA22E80B9A001A2E2E /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				A418DEF822E7F9F9001A2E2E /* SentimentPolarity.mlmodel */,
+				A418DEED22E6B2A6001A2E2E /* LaunchScreen.storyboard */,
+				A418DEF022E6B2A6001A2E2E /* Info.plist */,
+				A418DEEB22E6B2A6001A2E2E /* Assets.xcassets */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -131,8 +142,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A418DEE722E6B2A5001A2E2E /* ViewController.swift in Sources */,
+				A418DEF922E7F9F9001A2E2E /* SentimentPolarity.mlmodel in Sources */,
 				A418DEE522E6B2A5001A2E2E /* AppDelegate.swift in Sources */,
+				A418DEF722E76657001A2E2E /* ChatController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -272,7 +284,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 4479HNAQMJ;
-				INFOPLIST_FILE = TextingWithSentimentAnalysis/Info.plist;
+				INFOPLIST_FILE = TextingWithSentimentAnalysis/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -290,7 +302,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 4479HNAQMJ;
-				INFOPLIST_FILE = TextingWithSentimentAnalysis/Info.plist;
+				INFOPLIST_FILE = TextingWithSentimentAnalysis/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
