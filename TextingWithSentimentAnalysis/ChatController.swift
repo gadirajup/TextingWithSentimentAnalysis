@@ -36,8 +36,9 @@ class ChatController: UIViewController {
 extension ChatController {
     fileprivate func setupNavBar() {
         navigationItem.title = "Chat"
-        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.largeTitleDisplayMode = .always
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(handleAdd))
+        navigationController?.navigationBar.backgroundColor = .white
     }
 }
 
@@ -50,9 +51,10 @@ extension ChatController: UITableViewDelegate, UITableViewDataSource {
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellIdentifier)
         tableView.separatorStyle = .none
         tableView.keyboardDismissMode = .interactive
+        tableView.transform = CGAffineTransform(scaleX: 1, y: -1)
         
         view.addSubview(tableView)
-        tableView.topAnchor.constraint(equalTo: view.topAnchor, constant: 0).isActive = true
+        tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0).isActive = true
         tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0).isActive = true
         tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0).isActive = true
         tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0).isActive = true
@@ -64,6 +66,7 @@ extension ChatController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
+        cell.contentView.transform = CGAffineTransform(scaleX: 1, y: -1)
         cell.textLabel?.text = messages[indexPath.row]
         cell.textLabel?.textAlignment = indexPath.row.isMultiple(of: 2) ? .left : .right
         return cell
