@@ -10,11 +10,20 @@ import UIKit
 
 class ChatController: UIViewController {
     
+    // MARK: - Properties
+    
+    fileprivate var tableViewBotConstraint: NSLayoutConstraint!
+    
     fileprivate var cellIdentifier = "textCell"
     fileprivate var messages = [String]()
     fileprivate let sentimentService = SentimentService()
     
-    private lazy var chatToolbar: UIView = {
+    override var inputAccessoryView: UIView? { return chatToolbar }
+    override var canBecomeFirstResponder: Bool { return true }
+    
+    // MARK: - UI Elements
+    
+    fileprivate lazy var chatToolbar: UIView = {
         let containerView = UIView()
         containerView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 50)
         containerView.backgroundColor = #colorLiteral(red: 0.9098039269, green: 0.4784313738, blue: 0.6431372762, alpha: 1)
@@ -22,7 +31,7 @@ class ChatController: UIViewController {
         return containerView
     }()
     
-    private lazy var textField: UITextField = {
+    fileprivate lazy var textField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "Type here"
         textField.backgroundColor = .white
@@ -32,37 +41,37 @@ class ChatController: UIViewController {
         return textField
     }()
     
-    private lazy var sendButton: UIButton = {
+    fileprivate lazy var sendButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("SEND", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(handleSend), for: .touchUpInside)
         return button
     }()
     
-    private let tableView: UITableView = {
+    fileprivate let tableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
     
+    // MARK: - Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupObservers()
         setupNavBar()
         setupTableView()
         setupChat()
     }
     
-    override var inputAccessoryView: UIView? { return chatToolbar }
-    override var canBecomeFirstResponder: Bool { return true }
-    
-    @objc func handleAdd() {
-        messages.append("This is a new message wow!")
-        tableView.reloadData()
+    deinit {
+        removeObservers()
     }
 }
 
-// MARK: - Helpers
+// MARK: - Helpers & Handlers
 
 extension ChatController {
     fileprivate func setupNavBar() {
@@ -78,9 +87,39 @@ extension ChatController {
         chatStack.alignment = .center
         chatStack.distribution = .fillProportionally
         chatStack.translatesAutoresizingMaskIntoConstraints = false
-        
         chatToolbar.addSubview(chatStack)
         chatStack.anchor(top: chatToolbar.topAnchor, leading: chatToolbar.leadingAnchor, bottom: chatToolbar.bottomAnchor, trailing: chatToolbar.trailingAnchor, padding: .init(top: 4, left: 8, bottom: 4, right: 8))
+    }
+    
+    @objc fileprivate func handleAdd() {
+        messages.append("This is a new message wow!")
+        tableView.reloadData()
+    }
+}
+
+// MARK: - Observers
+
+extension ChatController {
+    fileprivate func setupObservers() {
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardChange), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardChange), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardChange), name: UIResponder.keyboardDidChangeFrameNotification, object: nil)
+    }
+    
+    fileprivate func removeObservers() {
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardDidChangeFrameNotification, object: nil)
+    }
+    
+    @objc fileprivate func handleKeyboardChange(notification: Notification) {
+        let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as AnyObject
+        let keyboardHeight = keyboardFrame.cgRectValue.height
+        tableViewBotConstraint.constant = keyboardHeight == 0 ? 0 : -keyboardHeight
+        view.layoutIfNeeded()
+    }
+    
+    @objc fileprivate func handleSend(){
         
     }
 }
@@ -100,7 +139,8 @@ extension ChatController: UITableViewDelegate, UITableViewDataSource {
         tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0).isActive = true
         tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0).isActive = true
         tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0).isActive = true
-        tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0).isActive = true
+        tableViewBotConstraint = tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0)
+        tableViewBotConstraint.isActive = true
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
