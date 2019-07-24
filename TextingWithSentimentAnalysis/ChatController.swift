@@ -16,9 +16,8 @@ class ChatController: UIViewController {
     
     private lazy var chatToolbar: UIView = {
         let containerView = UIView()
-        //containerView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 50)
+        containerView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 50)
         containerView.backgroundColor = #colorLiteral(red: 0.9098039269, green: 0.4784313738, blue: 0.6431372762, alpha: 1)
-        containerView.addSubview(textField)
         containerView.translatesAutoresizingMaskIntoConstraints = false
         return containerView
     }()
@@ -26,9 +25,19 @@ class ChatController: UIViewController {
     private lazy var textField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "Type here"
-        //textField.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 50)
+        textField.backgroundColor = .white
+        textField.layer.cornerRadius = 4
+        textField.setPadding(left: 8, right: 8)
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
+    }()
+    
+    private lazy var sendButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("SEND", for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
     }()
     
     private let tableView: UITableView = {
@@ -64,6 +73,15 @@ extension ChatController {
     }
     
     fileprivate func setupChat() {
+        let chatStack = UIStackView(arrangedSubviews: [textField, sendButton])
+        chatStack.axis = .horizontal
+        chatStack.alignment = .center
+        chatStack.distribution = .fillProportionally
+        chatStack.translatesAutoresizingMaskIntoConstraints = false
+        
+        chatToolbar.addSubview(chatStack)
+        chatStack.anchor(top: chatToolbar.topAnchor, leading: chatToolbar.leadingAnchor, bottom: chatToolbar.bottomAnchor, trailing: chatToolbar.trailingAnchor, padding: .init(top: 4, left: 8, bottom: 4, right: 8))
+        
     }
 }
 
