@@ -48,6 +48,7 @@ class ChatController: UIViewController {
         button.setTitleColor(.white, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(handleSend), for: .touchUpInside)
+        button.widthAnchor.constraint(equalToConstant: 60).isActive = true
         return button
     }()
     
