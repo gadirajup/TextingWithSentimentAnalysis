@@ -36,6 +36,7 @@ class ChatController: UIViewController {
         textField.placeholder = "Type here"
         textField.backgroundColor = .white
         textField.layer.cornerRadius = 4
+        textField.delegate = self
         textField.setPadding(left: 8, right: 8)
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
@@ -77,7 +78,6 @@ extension ChatController {
     fileprivate func setupNavBar() {
         navigationItem.title = "Chat"
         navigationItem.largeTitleDisplayMode = .always
-        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(handleAdd))
         navigationController?.navigationBar.backgroundColor = .white
     }
     
@@ -91,9 +91,24 @@ extension ChatController {
         chatStack.anchor(top: chatToolbar.topAnchor, leading: chatToolbar.leadingAnchor, bottom: chatToolbar.bottomAnchor, trailing: chatToolbar.trailingAnchor, padding: .init(top: 4, left: 8, bottom: 4, right: 8))
     }
     
-    @objc fileprivate func handleAdd() {
-        messages.append("This is a new message wow!")
+    @objc fileprivate func handleSend(){
+        guard textField.hasText else { return }
+        add(message: textField.text!)
+        textField.text = ""
+    }
+    
+    @objc fileprivate func add(message: String) {
+        messages.insert(message, at: 0)
         tableView.reloadData()
+    }
+}
+
+// MARK: - Chat
+
+extension ChatController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        handleSend()
+        return true
     }
 }
 
@@ -117,10 +132,6 @@ extension ChatController {
         let keyboardHeight = keyboardFrame.cgRectValue.height
         tableViewBotConstraint.constant = keyboardHeight == 0 ? 0 : -keyboardHeight
         view.layoutIfNeeded()
-    }
-    
-    @objc fileprivate func handleSend(){
-        
     }
 }
 
@@ -153,7 +164,7 @@ extension ChatController: UITableViewDelegate, UITableViewDataSource {
         cell.textLabel?.text = messages[indexPath.row]
         cell.textLabel?.textAlignment = indexPath.row.isMultiple(of: 2) ? .left : .right
         
-        let sentiment = sentimentService.predictSentiment(of: "This is a new message wow!")
+        let sentiment = sentimentService.predictSentiment(of: messages[indexPath.row])
         cell.backgroundColor = sentiment.color
         
         return cell
