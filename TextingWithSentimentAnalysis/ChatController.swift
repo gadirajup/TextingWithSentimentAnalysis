@@ -163,10 +163,10 @@ extension ChatController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
         cell.contentView.transform = CGAffineTransform(scaleX: 1, y: -1)
         cell.textLabel?.text = messages[indexPath.row]
-        cell.textLabel?.textAlignment = indexPath.row.isMultiple(of: 2) ? .left : .right
+        cell.textLabel?.textAlignment = .right
         
         let sentiment = sentimentService.predictSentiment(of: messages[indexPath.row])
-        cell.backgroundColor = sentiment.color
+        cell.textLabel?.text?.append(sentiment.emoji)
         
         return cell
     }
