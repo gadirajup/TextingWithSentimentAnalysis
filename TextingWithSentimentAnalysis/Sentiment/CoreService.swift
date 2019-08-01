@@ -8,7 +8,7 @@
 
 import CoreML
 
-final class SentimentService {
+final class CoreService {
     
     private enum Error: Swift.Error {
         case featuresMissing

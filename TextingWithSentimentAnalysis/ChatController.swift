@@ -16,12 +16,20 @@ class ChatController: UIViewController {
     
     fileprivate var cellIdentifier = "textCell"
     fileprivate var messages = [String]()
-    fileprivate let sentimentService = SentimentService()
+    fileprivate var selectedModel: Models = .SentimentPolarity
     
     override var inputAccessoryView: UIView? { return chatToolbar }
     override var canBecomeFirstResponder: Bool { return true }
     
     // MARK: - UI Elements
+    
+    fileprivate lazy var pickerView: UIPickerView = {
+        let picker = UIPickerView()
+        picker.delegate = self
+        picker.backgroundColor = .white
+        picker.isHidden = true
+        return picker
+    }()
     
     fileprivate lazy var chatToolbar: UIView = {
         let containerView = UIView()
@@ -66,6 +74,7 @@ class ChatController: UIViewController {
         setupNavBar()
         setupTableView()
         setupChat()
+        setupPicker()
     }
     
     deinit {
@@ -80,8 +89,43 @@ extension ChatController {
         navigationItem.title = "Chat"
         navigationItem.largeTitleDisplayMode = .always
         navigationController?.navigationBar.backgroundColor = .white
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Sentiment Polarity", style: .plain, target: self, action: #selector(handleModelSelect))
     }
     
+    @objc fileprivate func handleSend(){
+        guard textField.hasText else { return }
+        add(message: textField.text!)
+        textField.text = ""
+    }
+    
+    @objc fileprivate func handleModelSelect() {
+        pickerView.isHidden = false
+    }
+    
+    fileprivate func add(message: String) {
+        messages.insert(message, at: 0)
+        tableView.reloadData()
+    }
+    
+    fileprivate func getSentiment(from text: String) -> Sentiment {
+        let sentiment: Sentiment!
+        
+        switch selectedModel {
+        case .SentimentPolarity:
+            sentiment = CoreService().predictSentiment(of: text)
+        case .SentimentFromReviews:
+            sentiment = CreateService().prediction(for: text)
+        case .SentimentTF:
+            sentiment = CoreService().predictSentiment(of: text)
+        }
+        
+        return sentiment
+    }
+}
+
+// MARK: - Chat
+
+extension ChatController: UITextFieldDelegate {
     fileprivate func setupChat() {
         let chatStack = UIStackView(arrangedSubviews: [textField, sendButton])
         chatStack.axis = .horizontal
@@ -92,21 +136,6 @@ extension ChatController {
         chatStack.anchor(top: chatToolbar.topAnchor, leading: chatToolbar.leadingAnchor, bottom: chatToolbar.bottomAnchor, trailing: chatToolbar.trailingAnchor, padding: .init(top: 4, left: 8, bottom: 4, right: 8))
     }
     
-    @objc fileprivate func handleSend(){
-        guard textField.hasText else { return }
-        add(message: textField.text!)
-        textField.text = ""
-    }
-    
-    @objc fileprivate func add(message: String) {
-        messages.insert(message, at: 0)
-        tableView.reloadData()
-    }
-}
-
-// MARK: - Chat
-
-extension ChatController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         handleSend()
         return true
@@ -164,10 +193,39 @@ extension ChatController: UITableViewDelegate, UITableViewDataSource {
         cell.contentView.transform = CGAffineTransform(scaleX: 1, y: -1)
         cell.textLabel?.text = messages[indexPath.row]
         cell.textLabel?.textAlignment = .right
-        
-        let sentiment = sentimentService.predictSentiment(of: messages[indexPath.row])
+        cell.textLabel?.numberOfLines = -1
+    
+        let sentiment = getSentiment(from: messages[indexPath.row])
         cell.textLabel?.text?.append(sentiment.emoji)
         
         return cell
+    }
+}
+
+// MARK: - Picker
+
+extension ChatController: UIPickerViewDelegate, UIPickerViewDataSource {
+    
+    func setupPicker() {
+        view.addSubview(pickerView)
+        pickerView.anchor(top: nil, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor)
+    }
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return Models.allCases.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return Models(rawValue: row)?.description
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        selectedModel = Models(rawValue: row)!
+        navigationItem.rightBarButtonItem?.title = selectedModel.description
+        pickerView.isHidden = true
     }
 }

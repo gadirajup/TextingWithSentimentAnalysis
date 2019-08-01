@@ -7,18 +7,23 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A4187D2B22F29CC700F754E9 /* SentimentFromReviews.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = A4187D2A22F29CC700F754E9 /* SentimentFromReviews.mlmodel */; };
+		A4187D2D22F2A2C100F754E9 /* CreateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4187D2C22F2A2C100F754E9 /* CreateService.swift */; };
 		A418DEE522E6B2A5001A2E2E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A418DEE422E6B2A5001A2E2E /* AppDelegate.swift */; };
 		A418DEEC22E6B2A6001A2E2E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A418DEEB22E6B2A6001A2E2E /* Assets.xcassets */; };
 		A418DEEF22E6B2A6001A2E2E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A418DEED22E6B2A6001A2E2E /* LaunchScreen.storyboard */; };
 		A418DEF722E76657001A2E2E /* ChatController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A418DEF622E76657001A2E2E /* ChatController.swift */; };
 		A418DEF922E7F9F9001A2E2E /* SentimentPolarity.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = A418DEF822E7F9F9001A2E2E /* SentimentPolarity.mlmodel */; };
-		A418DEFC22E80F50001A2E2E /* SentimentService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A418DEFB22E80F50001A2E2E /* SentimentService.swift */; };
+		A418DEFC22E80F50001A2E2E /* CoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A418DEFB22E80F50001A2E2E /* CoreService.swift */; };
 		A418DEFE22E80F88001A2E2E /* Sentiment.swift in Sources */ = {isa = PBXBuildFile; fileRef = A418DEFD22E80F88001A2E2E /* Sentiment.swift */; };
-		A418DF0222E8B135001A2E2E /* UITextField+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A418DF0122E8B135001A2E2E /* UITextField+Extensions.swift */; };
+		A418DF0222E8B135001A2E2E /* UITextField+Padding.swift in Sources */ = {isa = PBXBuildFile; fileRef = A418DF0122E8B135001A2E2E /* UITextField+Padding.swift */; };
 		A418DF0422E8B355001A2E2E /* UIView+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = A418DF0322E8B355001A2E2E /* UIView+Layout.swift */; };
+		A418DF0622E956BC001A2E2E /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = A418DF0522E956BC001A2E2E /* Models.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A4187D2A22F29CC700F754E9 /* SentimentFromReviews.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = SentimentFromReviews.mlmodel; sourceTree = "<group>"; };
+		A4187D2C22F2A2C100F754E9 /* CreateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CreateService.swift; path = "../../../../../../../../System/Volumes/Data/Users/prudhvi/Google Drive/Code/_Swift/TextingWithSentimentAnalysis/TextingWithSentimentAnalysis/Sentiment/CreateService.swift"; sourceTree = "<group>"; };
 		A418DEE122E6B2A5001A2E2E /* TextingWithSentimentAnalysis.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TextingWithSentimentAnalysis.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A418DEE422E6B2A5001A2E2E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A418DEEB22E6B2A6001A2E2E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -26,10 +31,11 @@
 		A418DEF022E6B2A6001A2E2E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A418DEF622E76657001A2E2E /* ChatController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatController.swift; sourceTree = "<group>"; };
 		A418DEF822E7F9F9001A2E2E /* SentimentPolarity.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = SentimentPolarity.mlmodel; sourceTree = "<group>"; };
-		A418DEFB22E80F50001A2E2E /* SentimentService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SentimentService.swift; sourceTree = "<group>"; };
+		A418DEFB22E80F50001A2E2E /* CoreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreService.swift; sourceTree = "<group>"; };
 		A418DEFD22E80F88001A2E2E /* Sentiment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sentiment.swift; sourceTree = "<group>"; };
-		A418DF0122E8B135001A2E2E /* UITextField+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extensions.swift"; sourceTree = "<group>"; };
+		A418DF0122E8B135001A2E2E /* UITextField+Padding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Padding.swift"; sourceTree = "<group>"; };
 		A418DF0322E8B355001A2E2E /* UIView+Layout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Layout.swift"; sourceTree = "<group>"; };
+		A418DF0522E956BC001A2E2E /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +73,7 @@
 				A418DEFF22E811A2001A2E2E /* Sentiment */,
 				A418DEE422E6B2A5001A2E2E /* AppDelegate.swift */,
 				A418DEF622E76657001A2E2E /* ChatController.swift */,
+				A418DF0522E956BC001A2E2E /* Models.swift */,
 			);
 			path = TextingWithSentimentAnalysis;
 			sourceTree = "<group>";
@@ -75,6 +82,7 @@
 			isa = PBXGroup;
 			children = (
 				A418DEF822E7F9F9001A2E2E /* SentimentPolarity.mlmodel */,
+				A4187D2A22F29CC700F754E9 /* SentimentFromReviews.mlmodel */,
 				A418DEED22E6B2A6001A2E2E /* LaunchScreen.storyboard */,
 				A418DEF022E6B2A6001A2E2E /* Info.plist */,
 				A418DEEB22E6B2A6001A2E2E /* Assets.xcassets */,
@@ -85,7 +93,8 @@
 		A418DEFF22E811A2001A2E2E /* Sentiment */ = {
 			isa = PBXGroup;
 			children = (
-				A418DEFB22E80F50001A2E2E /* SentimentService.swift */,
+				A418DEFB22E80F50001A2E2E /* CoreService.swift */,
+				A4187D2C22F2A2C100F754E9 /* CreateService.swift */,
 				A418DEFD22E80F88001A2E2E /* Sentiment.swift */,
 			);
 			path = Sentiment;
@@ -95,7 +104,7 @@
 			isa = PBXGroup;
 			children = (
 				A418DF0322E8B355001A2E2E /* UIView+Layout.swift */,
-				A418DF0122E8B135001A2E2E /* UITextField+Extensions.swift */,
+				A418DF0122E8B135001A2E2E /* UITextField+Padding.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -171,10 +180,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				A418DEFE22E80F88001A2E2E /* Sentiment.swift in Sources */,
+				A4187D2D22F2A2C100F754E9 /* CreateService.swift in Sources */,
 				A418DEF922E7F9F9001A2E2E /* SentimentPolarity.mlmodel in Sources */,
-				A418DEFC22E80F50001A2E2E /* SentimentService.swift in Sources */,
-				A418DF0222E8B135001A2E2E /* UITextField+Extensions.swift in Sources */,
+				A418DEFC22E80F50001A2E2E /* CoreService.swift in Sources */,
+				A418DF0622E956BC001A2E2E /* Models.swift in Sources */,
+				A418DF0222E8B135001A2E2E /* UITextField+Padding.swift in Sources */,
 				A418DEE522E6B2A5001A2E2E /* AppDelegate.swift in Sources */,
+				A4187D2B22F29CC700F754E9 /* SentimentFromReviews.mlmodel in Sources */,
 				A418DF0422E8B355001A2E2E /* UIView+Layout.swift in Sources */,
 				A418DEF722E76657001A2E2E /* ChatController.swift in Sources */,
 			);
